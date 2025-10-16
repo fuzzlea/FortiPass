@@ -1,6 +1,12 @@
-import { VaultIcon, CoatHangerIcon, UserIcon } from "@phosphor-icons/react";
+import { VaultIcon, CoatHangerIcon, SignOutIcon } from "@phosphor-icons/react";
+import { useEffect } from "react";
+import { useSessionStorage } from "usehooks-ts";
 
 export default function Navbar() {
+
+   const [currentPage, setCurrentPage] = useSessionStorage('currentPage', String);
+
+   useEffect(() => { setCurrentPage('dashboard') }, [])
 
    return (
       <>
@@ -9,41 +15,41 @@ export default function Navbar() {
 
             {/* LOGO */}
 
-            <a className="font-extrabold mr-auto" href="#">FortiPass</a>
+            <a className="font-extrabold mr-auto" href="/">FortiPass</a>
 
             {/*  */}
 
             {/* VAULT */}
 
-            <a className="font-medium text-xl px-4 py-2 rounded-full hover:bg-foreground/10 duration-400 flex flex-row items-center justify-center gap-2 group" href="#">
+            <button onClick={() => { setCurrentPage('vault') }} className="font-medium text-xl px-4 py-2 rounded-full hover:bg-foreground/10 duration-400 flex flex-row items-center justify-center gap-2 group">
 
                <VaultIcon weight="fill" size={32} />
 
                <div className="text-foreground/0 text-[0rem] group-hover:text-foreground/100 group-hover:text-xl duration-400">Vault</div>
 
-            </a>
+            </button>
 
             {/*  */}
 
             {/* CUSTOMIZE */}
 
-            <a className="font-medium text-xl px-4 py-2 rounded-full hover:bg-foreground/10 duration-400 flex flex-row items-center justify-center gap-2 group" href="#">
+            <button onClick={() => { setCurrentPage('customization') }} className="font-medium text-xl px-4 py-2 rounded-full hover:bg-foreground/10 duration-400 flex flex-row items-center justify-center gap-2 group">
 
                <CoatHangerIcon weight="fill" size={32} />
 
                <div className="text-foreground/0 text-[0rem] group-hover:text-foreground/100 group-hover:text-xl duration-400">Customize</div>
 
-            </a>
+            </button>
 
             {/*  */}
 
-            {/* USER */}
+            {/* SIGN OUT */}
 
-            <a className="font-medium text-xl px-4 py-2 ml-auto rounded-full hover:bg-foreground/10 duration-400 flex flex-row items-center justify-center gap-2 group" href="#">
+            <a href="/login" className="font-medium text-xl px-4 py-2 ml-auto rounded-full hover:bg-foreground/10 duration-400 flex flex-row items-center justify-center gap-2 group">
 
-               <UserIcon size={32} />
+               <SignOutIcon size={32} />
 
-               <div className="text-foreground/0 text-[0rem] group-hover:text-foreground/100 group-hover:text-xl duration-400">User</div>
+               <div className="text-foreground/0 text-[0rem] group-hover:text-foreground/100 group-hover:text-xl duration-400">Exit</div>
 
             </a>
 

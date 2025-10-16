@@ -32,11 +32,17 @@ export default function LoginPage() {
 
     }
 
+    const incorrectLogin = () => {
+
+        window.location.reload();
+
+    }
+
     useEffect(() => {
 
         if (JSON.stringify(attemptedUser) === JSON.stringify(currentUser)) {
             logIn();
-        } else { console.log("Incorrect"); }
+        } else { attemptedUser.user == "" ? console.log("No Data") : incorrectLogin(); }
 
     }, [attemptedUser])
 
