@@ -1,15 +1,30 @@
-import Navbar from "./components/custom/navbar"
+import { useSessionStorage } from 'usehooks-ts';
+import { useNavigate } from 'react-router-dom';
+
+import { useEffect } from 'react';
 
 export default function App() {
 
-   return (<>
+   const [loggedIn] = useSessionStorage('loggedIn', undefined);
 
-      <div className="flex flex-col w-screen h-screen items-center p-4">
+   const navigate = useNavigate();
 
-         <Navbar />
+   const checkLoggedIn = () => {
 
-      </div>
+      if (loggedIn) {
 
-   </>)
+         navigate('/loggedin', { replace: true });
+
+      } else {
+
+         navigate('/login', { replace: true });
+
+      }
+
+   }
+
+   useEffect(() => { checkLoggedIn() }, [navigate, loggedIn])
+
+   return (<></>)
 
 }

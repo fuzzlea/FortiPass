@@ -1,4 +1,4 @@
-import { VaultIcon, CoatHangerIcon } from "@phosphor-icons/react";
+import { VaultIcon, CoatHangerIcon, UserIcon } from "@phosphor-icons/react";
 
 export default function Navbar() {
 
@@ -37,9 +37,15 @@ export default function Navbar() {
 
             {/*  */}
 
-            {/* Spacer for now - change to add button of sorts */}
+            {/* USER */}
 
-            <div className="mr-auto"></div>
+            <a className="font-medium text-xl px-4 py-2 ml-auto rounded-full hover:bg-foreground/10 duration-400 flex flex-row items-center justify-center gap-2 group" href="#">
+
+               <UserIcon size={32} />
+
+               <div className="text-foreground/0 text-[0rem] group-hover:text-foreground/100 group-hover:text-xl duration-400">User</div>
+
+            </a>
 
             {/*  */}
 
