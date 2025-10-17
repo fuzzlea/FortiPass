@@ -2,6 +2,8 @@ import { VaultIcon, CoatHangerIcon, SignOutIcon } from "@phosphor-icons/react";
 import { useEffect } from "react";
 import { useSessionStorage } from "usehooks-ts";
 
+import '../../animista.css';
+
 export default function Navbar() {
 
    const [currentPage, setCurrentPage] = useSessionStorage('currentPage', String);
@@ -11,7 +13,7 @@ export default function Navbar() {
    return (
       <>
 
-         <div className="p-8 w-[75svw] h-15 max-h-20 bg-foreground/2 outline-1 outline-foreground/10 rounded-full flex justify-center items-center text-foreground text-2xl gap-10">
+         <div className="slide-in-top p-8 w-[75svw] h-15 max-h-20 bg-foreground/2 outline-1 outline-foreground/10 rounded-full flex justify-center items-center text-foreground text-2xl gap-10">
 
             {/* LOGO */}
 

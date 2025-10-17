@@ -1,5 +1,5 @@
 import { useLocalStorage, useSessionStorage } from 'usehooks-ts';
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 import { KeyholeIcon } from '@phosphor-icons/react';
@@ -7,7 +7,8 @@ import type { BaseSyntheticEvent } from 'react';
 
 export default function LoginPage() {
 
-    const [currentUser, setCurrentUser] = useLocalStorage('user', { "user": "", "password": "" })
+    const [currentUser, setCurrentUser] = useLocalStorage('user', { user: '', password: 'INIT PASS' })
+
     const [attemptedUser, setAttemptedUser] = useSessionStorage('attempted-user', { "user": "", "password": "" })
     const [loggedIn, setLoggedIn] = useSessionStorage('loggedIn', false)
 
@@ -22,6 +23,51 @@ export default function LoginPage() {
         const password = form.get('password-input') as string;
 
         setAttemptedUser({ 'user': username, 'password': password })
+
+    }
+
+    const handlePasswordCheck = (attemptedPassword: String) => {
+
+        var minChars = 8;
+        var minSpecialChars = 1;
+        var minCapitals = 1;
+        var minLowers = 1;
+        var spacesAllowed = 0;
+
+        var specialCharCount = 0;
+        var capitalCount = 0;
+        var lowerCount = 0;
+        var spacesCount = 0;
+
+        var characters = attemptedPassword.split("");
+        var specialChars = "!@#$%^&*()_+-=[]{}|;':\",.<>/?`~";
+
+        for (var i = 0; i < characters.length; i++) {
+
+            var char = characters[i]
+
+            if (char >= "A" && char <= "Z") { capitalCount++ }
+            if (char >= "a" && char <= "z") { lowerCount++ }
+            if (specialChars.includes(char)) { specialCharCount++ }
+            if (char === " ") { spacesCount++ }
+
+        }
+
+        var lengthCheck = attemptedPassword.length >= minChars;
+        var capitalCheck = capitalCount >= minCapitals;
+        var lowerCheck = lowerCount >= minLowers;
+        var specialCheck = specialCharCount >= minSpecialChars;
+        var spaceCheck = spacesCount <= spacesAllowed;
+
+        var allCheckPass = lengthCheck && capitalCheck && lowerCheck && specialCheck && spaceCheck;
+
+        return { valid: allCheckPass, errors: { lengthCheck, capitalCheck, lowerCheck, specialCheck, spaceCheck } }
+
+    }
+
+    const forgotPassword = () => {
+
+        setCurrentUser({ user: '', password: 'INIT PASS' })
 
     }
 
@@ -40,15 +86,34 @@ export default function LoginPage() {
 
     useEffect(() => {
 
+        if (currentUser.password === 'INIT PASS') {
+
+            if (handlePasswordCheck(attemptedUser.password).valid) {
+
+                setCurrentUser({ user: attemptedUser.user, password: attemptedUser.password })
+
+            }
+
+        }
+
         if (JSON.stringify(attemptedUser) === JSON.stringify(currentUser)) {
             logIn();
         } else { attemptedUser.user == "" ? console.log("No Data") : incorrectLogin(); }
 
     }, [attemptedUser])
 
-    useEffect(() => { setLoggedIn(false); setAttemptedUser({ 'user': '', 'password': '' }) }, [])
+    useEffect(() => {
+
+        setLoggedIn(false);
+
+        setAttemptedUser({ 'user': '', 'password': '' });
+
+
+    }, [])
 
     return (<>
+
+        {console.log(currentUser)}
 
         {/* CONTAINER */}
 
@@ -80,9 +145,17 @@ export default function LoginPage() {
 
                 </div>
 
-                <button type='button' className='underline italic text-sm'>Forgot Password?</button>
+                <button onClick={forgotPassword} type='button' className='underline italic text-sm'>
 
-                <button type='submit' className='mt-auto w-2/3 h-10 hover:bg-foreground outline-1 hover:outline-accent-foreground rounded-lg text-xl hover:text-accent bg-accent/10 outline-foreground/10 text-foreground duration-200' >Login</button>
+                    {currentUser.user === "" && currentUser.password === "INIT PASS" ? <></> : <>Forgot Password?</>}
+
+                </button>
+
+                <button type='submit' className='mt-auto w-2/3 h-10 hover:bg-foreground outline-1 hover:outline-accent-foreground rounded-lg text-xl hover:text-accent bg-accent/10 outline-foreground/10 text-foreground duration-200' >
+
+                    {currentUser.user === "" && currentUser.password === "INIT PASS" ? <>Create Account</> : <>Login</>}
+
+                </button>
 
             </form>
 
