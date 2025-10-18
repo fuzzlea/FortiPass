@@ -51,7 +51,7 @@ export default function Navbar() {
 
                <SignOutIcon size={32} />
 
-               <div className="text-foreground/0 text-[0rem] group-hover:text-foreground/100 group-hover:text-xl duration-400">Exit</div>
+               <div className="text-foreground/0 text-[0rem] group-hover:text-foreground/100 group-hover:text-xl duration-400">Logout</div>
 
             </a>
 
