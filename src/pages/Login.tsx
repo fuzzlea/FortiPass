@@ -8,6 +8,7 @@ import type { BaseSyntheticEvent } from 'react';
 export default function LoginPage() {
 
     const [currentUser, setCurrentUser] = useLocalStorage('user', { user: '', password: 'INIT PASS' })
+    const [totalLogins, setTotalLogins] = useLocalStorage('totalLogins', 0)
 
     const [attemptedUser, setAttemptedUser] = useSessionStorage('attempted-user', { "user": "", "password": "" })
     const [loggedIn, setLoggedIn] = useSessionStorage('loggedIn', false)
@@ -69,12 +70,16 @@ export default function LoginPage() {
 
         setCurrentUser({ user: '', password: 'INIT PASS' })
 
+        setTotalLogins(0)
+
     }
 
     const logIn = () => {
 
         setLoggedIn(true)
         navigate('/loggedin')
+
+        setTotalLogins(totalLogins + 1)
 
     }
 
@@ -104,10 +109,11 @@ export default function LoginPage() {
 
     useEffect(() => {
 
-        setLoggedIn(false);
-
         setAttemptedUser({ 'user': '', 'password': '' });
 
+        setLoggedIn(false);
+
+        setTotalLogins(totalLogins)
 
     }, [])
 

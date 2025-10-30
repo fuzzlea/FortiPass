@@ -8,6 +8,7 @@ import PwnedPad from "@/components/custom/pwned";
 export default function DashboardPage() {
 
    const currentUser = useReadLocalStorage<{ user: '', password: '' }>('user');
+   const currentTotalLogins = useReadLocalStorage<number>('totalLogins');
 
    const currentDate = new Date();
 
@@ -28,7 +29,7 @@ export default function DashboardPage() {
 
                <p className="tracking-in-expand text-2xl font-bold" >0 <span className="text-lg font-normal">Passwords</span></p>
                <p className="tracking-in-expand text-2xl font-bold" >0 <span className="text-lg font-normal">Issues</span></p>
-               <p className="tracking-in-expand text-2xl font-bold" >3 <span className="text-lg font-normal">Logins</span></p>
+               <p className="tracking-in-expand text-2xl font-bold" >{currentTotalLogins} <span className="text-lg font-normal">Logins</span></p>
 
                <div className="mt-auto w-full h-fit flex flex-row items-center justify-center gap-2">
 
