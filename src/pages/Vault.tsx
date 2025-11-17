@@ -62,9 +62,9 @@ export default function VaultPage() {
     };
 
     return (
-        <div className="w-full h-full flex flex-col bg-background">
+        <div className="w-5/6 h-full flex flex-col bg-background">
             {/* Header */}
-            <div className="slide-in-top-smaller p-6 mb-2 mt-2 rounded-lg bg-foreground/5 border-b border-foreground/10">
+            <div className="slide-in-top-smaller p-6 mb-2 mt-4 rounded-lg bg-foreground/5 border-b border-foreground/10">
                 <div className="flex items-center gap-3 mb-4">
                     <VaultIcon weight="fill" size={32} className="text-accent" />
                     <h1 className="text-3xl font-bold">Password Vault</h1>
