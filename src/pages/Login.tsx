@@ -1,5 +1,5 @@
 import { useLocalStorage, useSessionStorage } from 'usehooks-ts';
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 import { KeyholeIcon } from '@phosphor-icons/react';
@@ -11,7 +11,7 @@ export default function LoginPage() {
     const [totalLogins, setTotalLogins] = useLocalStorage('totalLogins', 0)
 
     const [attemptedUser, setAttemptedUser] = useSessionStorage('attempted-user', { "user": "", "password": "" })
-    const [loggedIn, setLoggedIn] = useSessionStorage('loggedIn', false)
+    const [_loggedIn, setLoggedIn] = useSessionStorage('loggedIn', false)
 
     const navigate = useNavigate();
 
