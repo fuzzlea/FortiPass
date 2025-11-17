@@ -9,6 +9,8 @@ const createWindow = () => {
     mainWindow = new BrowserWindow({
         width: 1024,
         height: 768,
+        fullscreen: true,
+        show: false,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
             contextIsolation: true,
@@ -23,6 +25,10 @@ const createWindow = () => {
     console.log('isDev:', isDev);
     mainWindow.loadURL(startUrl).catch((err) => {
         console.error('Failed to load URL:', err);
+    });
+    // Show window when ready
+    mainWindow.once('ready-to-show', () => {
+        mainWindow?.show();
     });
     // Always open DevTools in development
     if (isDev) {
