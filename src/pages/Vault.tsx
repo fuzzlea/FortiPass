@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
 import { VaultIcon, PlusIcon, TrashIcon, EyeIcon, EyeSlashIcon, CopyIcon } from '@phosphor-icons/react';
 
+import '../animista.css';
+
 interface VaultEntry {
     id: string;
     site: string;
@@ -62,7 +64,7 @@ export default function VaultPage() {
     return (
         <div className="w-full h-full flex flex-col bg-background">
             {/* Header */}
-            <div className="p-6 bg-foreground/5 border-b border-foreground/10">
+            <div className="slide-in-top-smaller p-6 mb-2 mt-2 rounded-lg bg-foreground/5 border-b border-foreground/10">
                 <div className="flex items-center gap-3 mb-4">
                     <VaultIcon weight="fill" size={32} className="text-accent" />
                     <h1 className="text-3xl font-bold">Password Vault</h1>
@@ -71,7 +73,7 @@ export default function VaultPage() {
             </div>
 
             {/* Search and Add Button */}
-            <div className="p-6 bg-foreground/2 border-b border-foreground/10 flex gap-4">
+            <div className="tracking-in-expand p-6 rounded-lg bg-foreground/2 border-b border-foreground/10 flex gap-4">
                 <input
                     type="text"
                     placeholder="Search passwords..."
@@ -81,9 +83,9 @@ export default function VaultPage() {
                 />
                 <button
                     onClick={() => setShowAddForm(!showAddForm)}
-                    className="px-6 py-2 bg-accent text-background rounded-lg font-semibold hover:bg-accent/90 transition-colors flex items-center gap-2"
+                    className="px-6 py-2 bg-accent text-foreground rounded-lg font-semibold hover:bg-accent/90 transition-colors flex items-center gap-2"
                 >
-                    <PlusIcon weight="bold" size={20} />
+                    <PlusIcon weight="bold" className='text-white' size={20} />
                     Add Password
                 </button>
             </div>
@@ -118,7 +120,7 @@ export default function VaultPage() {
                     <div className="flex gap-3 mt-4">
                         <button
                             onClick={addEntry}
-                            className="px-6 py-2 bg-accent text-background rounded-lg font-semibold hover:bg-accent/90 transition-colors"
+                            className="px-6 py-2 bg-accent text-foreground rounded-lg font-semibold hover:bg-accent/90 transition-colors"
                         >
                             Save Password
                         </button>
@@ -187,8 +189,8 @@ export default function VaultPage() {
                                         <button
                                             onClick={() => copyToClipboard(entry.password, entry.id)}
                                             className={`p-2 transition-colors ${copiedId === entry.id
-                                                    ? 'text-accent'
-                                                    : 'text-foreground/60 hover:text-foreground'
+                                                ? 'text-accent'
+                                                : 'text-foreground/60 hover:text-foreground'
                                                 }`}
                                             title="Copy password"
                                         >
