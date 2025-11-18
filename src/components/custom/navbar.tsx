@@ -7,7 +7,7 @@ import '../../animista.css';
 export default function Navbar() {
 
    const [_currentPage, setCurrentPage] = useSessionStorage('currentPage', String);
-   const [loggedIn, setLoggedIn] = useSessionStorage('loggedIn', true);
+   const [_oggedIn, setLoggedIn] = useSessionStorage('loggedIn', true);
 
    useEffect(() => { setCurrentPage('dashboard') }, [])
 
