@@ -6,7 +6,6 @@ import {
   LockIcon,
   ClockIcon
 } from '@phosphor-icons/react';
-import { useNavigate } from 'react-router-dom';
 
 import '../animista.css';
 
@@ -14,7 +13,6 @@ export default function DashboardPage() {
   const currentUser = useReadLocalStorage<{ user: string; password: string }>('user');
   const vaultEntries = useReadLocalStorage<any[]>('vault_entries') || [];
   const totalLogins = useReadLocalStorage<number>('totalLogins') || 0;
-  const navigate = useNavigate();
 
   const currentDate = new Date();
   const formattedDate = `${String(currentDate.getMonth() + 1).padStart(2, '0')}/${String(currentDate.getDate()).padStart(2, '0')}/${currentDate.getFullYear()}`;
@@ -22,8 +20,6 @@ export default function DashboardPage() {
   // Calculate password strength (basic)
   const weakPasswords = vaultEntries.filter((entry) => entry.password.length < 8).length;
   const strongPasswords = vaultEntries.length - weakPasswords;
-
-  const goToVault = () => navigate('/loggedin/vault');
 
   return (
     <div className="w-5/6 h-full flex flex-col bg-background">
@@ -35,7 +31,7 @@ export default function DashboardPage() {
             <p className="text-foreground/60 mt-1">Welcome back, <span className="font-semibold text-foreground">{currentUser?.user || 'User'}</span></p>
           </div>
           <div className="text-right">
-            <p className="text-2xl font-bold text-accent">{formattedDate}</p>
+            <p className="text-2xl font-bold text-foreground">{formattedDate}</p>
             <p className="text-foreground/60 text-sm">{new Date().toLocaleTimeString()}</p>
           </div>
         </div>
@@ -54,12 +50,6 @@ export default function DashboardPage() {
             <p className="text-sm text-foreground/60">
               {vaultEntries.length === 0 ? 'No passwords saved yet' : `${vaultEntries.length} password${vaultEntries.length !== 1 ? 's' : ''} stored securely`}
             </p>
-            <button
-              onClick={goToVault}
-              className="mt-4 w-full px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 rounded-lg font-semibold transition-colors"
-            >
-              View Vault →
-            </button>
           </div>
 
           {/* Security Status Card */}

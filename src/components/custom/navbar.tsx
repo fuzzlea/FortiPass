@@ -7,6 +7,7 @@ import '../../animista.css';
 export default function Navbar() {
 
    const [_currentPage, setCurrentPage] = useSessionStorage('currentPage', String);
+   const [loggedIn, setLoggedIn] = useSessionStorage('loggedIn', true);
 
    useEffect(() => { setCurrentPage('dashboard') }, [])
 
@@ -47,7 +48,7 @@ export default function Navbar() {
 
             {/* SIGN OUT */}
 
-            <a href="/login" className="font-medium text-xl px-4 py-2 ml-auto rounded-full hover:bg-foreground/10 duration-400 flex flex-row items-center justify-center gap-2 group">
+            <a href="/login" onClick={() => { setLoggedIn(false); }} className="font-medium text-xl px-4 py-2 ml-auto rounded-full hover:bg-foreground/10 duration-400 flex flex-row items-center justify-center gap-2 group">
 
                <SignOutIcon size={32} />
 
