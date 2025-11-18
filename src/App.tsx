@@ -25,6 +25,10 @@ export default function App() {
 
    useEffect(() => { checkLoggedIn() }, [navigate, loggedIn])
 
-   return (<></>)
+   return (
+      <div className="w-full h-full flex items-center justify-center bg-background">
+         <p className="text-foreground">Loading...</p>
+      </div>
+   )
 
 }

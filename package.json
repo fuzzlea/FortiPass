@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:electron": "NODE_ENV=development tsc -b && concurrently \"npm run dev\" \"wait-on http://localhost:5173 && NODE_ENV=development electron .\"",
+    "dev:electron": "NODE_ENV=development tsc -b && node fix-preload.cjs && concurrently \"npm run dev\" \"wait-on http://localhost:5173 && NODE_ENV=development electron .\"",
     "build": "tsc -b && vite build",
-    "build:electron": "npm run build && electron-builder",
+    "build:electron": "npm run build && node fix-preload.cjs && electron-builder",
+    "build:preload-cjs": "node fix-preload.cjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },

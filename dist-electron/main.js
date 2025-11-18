@@ -12,15 +12,24 @@ const createWindow = () => {
         fullscreen: true,
         show: false,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js'),
+            preload: path.join(__dirname, 'preload.cjs'),
             contextIsolation: true,
+            nodeIntegration: false,
         },
     });
     // In development, load from Vite dev server
     // In production, load from built files
-    const startUrl = isDev
-        ? 'http://localhost:5173'
-        : `file://${path.join(__dirname, '../dist/index.html')}`;
+    let startUrl;
+    if (isDev) {
+        startUrl = 'http://localhost:5173';
+    }
+    else {
+        // In production, load from the bundled dist folder
+        const indexPath = path.join(__dirname, '../dist/index.html');
+        // Use proper file:// URL with encoded path
+        const fileUrl = new URL(`file://${indexPath}`).href;
+        startUrl = fileUrl;
+    }
     console.log('Loading URL:', startUrl);
     console.log('isDev:', isDev);
     mainWindow.loadURL(startUrl).catch((err) => {
