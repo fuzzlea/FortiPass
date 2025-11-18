@@ -18,7 +18,7 @@ export default function Navbar() {
 
             {/* LOGO */}
 
-            <a className="font-extrabold mr-auto" href="/">FortiPass</a>
+            <a className="font-extrabold mr-auto" onClick={() => { setCurrentPage('dashboard') }}>FortiPass</a>
 
             {/*  */}
 
